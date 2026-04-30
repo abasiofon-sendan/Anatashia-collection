@@ -119,7 +119,7 @@ export default async function ProductPage({ params }) {
               {product.isAvailable ? (
                 <>
                   <a
-                    href={`https://wa.me/2347025100529?text=Hi,%20I'm%20interested%20in%20${encodeURIComponent(product.name)}%20-%20${formatPrice(product.price)}`}
+                    href={`https://wa.me/2347025100529?text=Hi,%20I'm%20interested%20in%20this%20product:%0A%0A*${encodeURIComponent(product.name)}*%0APrice: ${encodeURIComponent(formatPrice(product.price))}%0A%0AView on our site:%20https://anatashia-collection.vercel.app/products/${product.slug.current}%0A%0AImage:%20${encodeURIComponent(product.images?.[0] ? urlFor(product.images[0]).url() : '/placeholder.jpg')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full px-6 py-3 rounded-lg bg-[#25D366] hover:bg-[#128C7E] text-white font-medium text-center transition-colors"
@@ -136,7 +136,7 @@ export default async function ProductPage({ params }) {
                     This item is currently sold out. Contact us on WhatsApp to be notified when it&apos;s back in stock.
                   </p>
                   <a
-                    href="https://wa.me/2347025100529?text=Hi,%20I'm%20interested%20in%20being%20notified%20when%20this%20item%20is%20back%20in%20stock."
+                    href={`https://wa.me/2347025100529?text=Hi,%20I'm%20interested%20in%20being%20notified%20when%20this%20item%20is%20back%20in%20stock:%0A%0A*${encodeURIComponent(product.name)}*%0A%0AView on our site:%20https://anatashia-collection.vercel.app/products/${product.slug.current}%0A%0AImage:%20${encodeURIComponent(product.images?.[0] ? urlFor(product.images[0]).url() : '/placeholder.jpg')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block mt-4 px-4 py-2 rounded-lg bg-[#25D366] hover:bg-[#128C7E] text-white font-medium transition-colors"
