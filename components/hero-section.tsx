@@ -14,8 +14,8 @@ export function HeroSection() {
           priority
           sizes="100vw"
         />
-        {/* Cinematic wash — readable in light & dark */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/20 dark:from-background/95 dark:via-background/65 dark:to-background/10" />
+        {/* Cinematic wash */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/65 to-background/10" />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
       </div>
 

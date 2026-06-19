@@ -1,42 +1,7 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
-  /* Brand: warm beige · deep charcoal · soft gold */
-  --background: #f5f0e8;
-  --foreground: #1c1c1c;
-  --card: #fbf9f4;
-  --card-foreground: #1c1c1c;
-  --popover: #fbf9f4;
-  --popover-foreground: #1c1c1c;
-  --primary: #c2a268;
-  --primary-foreground: #1c1c1c;
-  --secondary: #ece5d8;
-  --secondary-foreground: #2a2520;
-  --muted: #ece5d8;
-  --muted-foreground: #6e665a;
-  --accent: #ede4d3;
-  --accent-foreground: #1c1c1c;
-  --gold: #c2a268;
-  --gold-soft: #d4af88;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: #ffffff;
-  --border: #e2dacb;
-  --input: #ece5d8;
-  --ring: #c2a268;
-  --radius: 0.25rem;
-  --sidebar: #f5f0e8;
-  --sidebar-foreground: #1c1c1c;
-  --sidebar-primary: #c2a268;
-  --sidebar-primary-foreground: #1c1c1c;
-  --sidebar-accent: #ede4d3;
-  --sidebar-accent-foreground: #1c1c1c;
-  --sidebar-border: #e2dacb;
-  --sidebar-ring: #c2a268;
-}
-
-.dark {
+  /* Brand: deep charcoal · warm beige · soft gold */
   --background: #1c1c1c;
   --foreground: #f5f0e8;
   --card: #242321;
@@ -58,6 +23,7 @@
   --border: #34322e;
   --input: #2c2a27;
   --ring: #d4af88;
+  --radius: 0.25rem;
   --sidebar: #242321;
   --sidebar-foreground: #f5f0e8;
   --sidebar-primary: #d4af88;
