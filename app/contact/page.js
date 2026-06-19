@@ -17,88 +17,86 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="py-12 md:py-20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-              Get In Touch
-            </h1>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Have questions about a product or need styling advice? I&apos;d love to hear from you! 
-              The fastest way to reach me is through WhatsApp.
-            </p>
+    <div className="py-16 md:py-24">
+      <div className="mx-auto max-w-2xl px-5 md:px-8">
+        {/* Page Header */}
+        <div className="text-center mb-14">
+          <p className="eyebrow">We&apos;d Love to Hear From You</p>
+          <h1 className="display mt-4 text-5xl md:text-6xl text-foreground">
+            Get in Touch
+          </h1>
+          <p className="mt-5 text-muted-foreground font-light leading-relaxed">
+            Questions about a piece, or need styling advice? The fastest way to
+            reach us is on WhatsApp — we&apos;re always happy to help.
+          </p>
+        </div>
+
+        {/* Contact Cards */}
+        <div className="space-y-5">
+          {/* WhatsApp Card */}
+          <div className="group bg-card border border-border p-7 md:p-8 transition-colors hover:border-gold">
+            <div className="flex items-start gap-5">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full border border-border text-foreground shrink-0">
+                <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-serif text-2xl text-foreground mb-1.5">
+                  WhatsApp
+                </h2>
+                <p className="text-muted-foreground font-light mb-5 leading-relaxed">
+                  Chat directly for quick responses, product inquiries, or to place an order.
+                </p>
+                <a
+                  href={`https://wa.me/${storeSettings.whatsappNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-gold-soft text-primary-foreground text-xs font-semibold uppercase tracking-[0.2em] transition-colors"
+                >
+                  Start Chat
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Contact Cards */}
-          <div className="space-y-6">
-            {/* WhatsApp Card */}
-            <div className="bg-card border border-border rounded-lg p-6 md:p-8">
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#25D366]/10 text-[#25D366]">
-                  <MessageCircle className="h-6 w-6" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-foreground mb-2">
-                    WhatsApp
-                  </h2>
-                  <p className="text-muted-foreground mb-4">
-                    Chat with me directly for quick responses, product inquiries, or to place an order.
-                  </p>
-                  <a
-                    href={`https://wa.me/${storeSettings.whatsappNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 rounded-lg bg-[#25D366] hover:bg-[#128C7E] text-white font-medium transition-colors"
-                  >
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Start Chat
-                  </a>
-                </div>
+          {/* Instagram Card */}
+          <div className="group bg-card border border-border p-7 md:p-8 transition-colors hover:border-gold">
+            <div className="flex items-start gap-5">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full border border-border text-foreground shrink-0">
+                <Share2 className="h-5 w-5" strokeWidth={1.5} />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-serif text-2xl text-foreground mb-1.5">
+                  Instagram
+                </h2>
+                <p className="text-muted-foreground font-light mb-5 leading-relaxed">
+                  Follow for the latest arrivals, styling tips, and behind-the-scenes moments.
+                </p>
+                <a
+                  href={`https://instagram.com/${storeSettings.instagramHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-foreground hover:bg-foreground hover:text-background text-foreground text-xs font-semibold uppercase tracking-[0.2em] transition-colors"
+                >
+                  @{storeSettings.instagramHandle}
+                </a>
               </div>
             </div>
+          </div>
 
-            {/* Instagram Card */}
-            <div className="bg-card border border-border rounded-lg p-6 md:p-8">
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
-                  <Share2 className="h-6 w-6" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-foreground mb-2">
-                    Instagram
-                  </h2>
-                  <p className="text-muted-foreground mb-4">
-                    Follow us for the latest arrivals, styling tips, and behind-the-scenes content.
-                  </p>
-                  <a
-                    href={`https://instagram.com/${storeSettings.instagramHandle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 rounded-lg border border-border hover:bg-muted text-foreground font-medium transition-colors"
-                  >
-                    <Share2 className="mr-2 h-5 w-5" />
-                    @{storeSettings.instagramHandle}
-                  </a>
-                </div>
+          {/* Response Time Info */}
+          <div className="bg-secondary p-7 md:p-8">
+            <div className="flex items-start gap-5">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full border border-border text-foreground shrink-0">
+                <Clock className="h-5 w-5" strokeWidth={1.5} />
               </div>
-            </div>
-
-            {/* Response Time Info */}
-            <div className="bg-secondary rounded-lg p-6 md:p-8">
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
-                  <Clock className="h-6 w-6" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-foreground mb-2">
-                    Response Time
-                  </h2>
-                  <p className="text-muted-foreground">
-                    I typically respond to messages within a few hours during business hours. For urgent inquiries, WhatsApp is the fastest way to reach me.
-                  </p>
-                </div>
+              <div className="flex-1">
+                <h2 className="font-serif text-2xl text-foreground mb-1.5">
+                  Response Time
+                </h2>
+                <p className="text-muted-foreground font-light leading-relaxed">
+                  We typically respond within a few hours during business hours.
+                  For urgent inquiries, WhatsApp is the fastest way to reach us.
+                </p>
               </div>
             </div>
           </div>

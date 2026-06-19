@@ -25,7 +25,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
   if (!images || images.length === 0) {
     return (
-      <div className="relative aspect-[3/4] overflow-hidden bg-muted rounded-lg">
+      <div className="relative aspect-[3/4] overflow-hidden bg-muted">
         <Image
           src="/placeholder.jpg"
           alt={productName}
@@ -39,9 +39,9 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Main Image with Navigation */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-muted rounded-lg group">
+      <div className="relative aspect-[3/4] overflow-hidden bg-muted group">
         <Image
           src={primaryImage}
           alt={`${productName} - Image ${selectedImageIndex + 1}`}
@@ -73,7 +73,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             </button>
 
             {/* Image Counter */}
-            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm text-sm font-medium text-foreground">
+            <div className="absolute bottom-4 right-4 px-3 py-1 bg-background/80 backdrop-blur-sm text-xs font-medium tracking-wider text-foreground">
               {selectedImageIndex + 1} / {images.length}
             </div>
           </>
@@ -87,10 +87,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             <button
               key={idx}
               onClick={() => setSelectedImageIndex(idx)}
-              className={`relative aspect-square overflow-hidden bg-muted rounded border-2 transition-all ${
+              className={`relative aspect-square overflow-hidden bg-muted transition-all duration-300 ${
                 selectedImageIndex === idx
-                  ? 'border-primary'
-                  : 'border-transparent hover:border-border'
+                  ? 'ring-1 ring-gold ring-offset-2 ring-offset-background opacity-100'
+                  : 'opacity-60 hover:opacity-100'
               }`}
               aria-label={`View image ${idx + 1}`}
             >

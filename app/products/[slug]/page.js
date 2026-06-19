@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getProductBySlug, getProductsByCategory, formatPrice, getProducts } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
@@ -55,57 +56,64 @@ export default async function ProductPage({ params }) {
   const filteredRelated = relatedProducts.filter(p => p._id !== product._id).slice(0, 4)
 
   return (
-    <div className="py-8 md:py-12">
-      <div className="container mx-auto px-4">
+    <div className="py-8 md:py-14">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        {/* Breadcrumb */}
+        <nav className="mb-8 text-[0.7rem] uppercase tracking-[0.2em] text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="mx-2 text-border">/</span>
+          <Link href="/products" className="hover:text-foreground transition-colors">Shop</Link>
+          <span className="mx-2 text-border">/</span>
+          <span className="text-foreground/80">{product.category}</span>
+        </nav>
+
         {/* Product Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-24">
           {/* Gallery */}
           <ProductGallery images={product.images} productName={product.name} />
 
           {/* Info */}
-          <div className="space-y-6">
-            {/* Category & Availability */}
-            <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded text-sm font-medium border border-border text-foreground">
-                {product.category}
-              </span>
-              <span 
-                className={`px-3 py-1 rounded text-sm font-medium ${
-                  product.isAvailable 
-                    ? "bg-primary text-primary-foreground" 
-                    : "bg-muted text-muted-foreground"
-                }`}
-              >
-                {product.isAvailable ? 'Available' : 'Sold Out'}
+          <div className="lg:py-4 lg:sticky lg:top-28 lg:self-start">
+            {/* Eyebrow */}
+            <p className="eyebrow">{product.category}</p>
+
+            {/* Name */}
+            <h1 className="display mt-4 text-4xl md:text-5xl text-foreground">
+              {product.name}
+            </h1>
+
+            {/* Price */}
+            <p className="mt-5 text-2xl font-light tracking-wide text-foreground">
+              {formatPrice(product.price)}
+            </p>
+
+            {/* Availability line */}
+            <div className="mt-4 flex items-center gap-2">
+              <span className={`h-1.5 w-1.5 rounded-full ${product.isAvailable ? 'bg-gold' : 'bg-muted-foreground'}`} />
+              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                {product.isAvailable ? 'In Stock' : 'Sold Out'}
               </span>
             </div>
 
-            {/* Name & Price */}
-            <div>
-              <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
-                {product.name}
-              </h1>
-              <p className="text-2xl md:text-3xl font-semibold text-primary">
-                {formatPrice(product.price)}
-              </p>
-            </div>
+            {/* Divider */}
+            <div className="my-8 h-px bg-border" />
 
             {/* Description */}
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-muted-foreground font-light leading-relaxed">
               {product.description}
             </p>
 
             {/* Sizes */}
             {product.sizes && product.sizes.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-3">
-                  Available Sizes
+              <div className="mt-8">
+                <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground mb-4">
+                  Select Size
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2.5">
                   {product.sizes.map((size) => (
                     <span
                       key={size}
-                      className="px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground"
+                      className="min-w-12 text-center px-4 py-2.5 border border-border text-sm font-medium text-foreground hover:border-gold hover:text-gold transition-colors cursor-default"
                     >
                       {size}
                     </span>
@@ -114,48 +122,61 @@ export default async function ProductPage({ params }) {
               </div>
             )}
 
-            {/* WhatsApp CTA */}
-            <div className="pt-4 space-y-4">
+            {/* CTA */}
+            <div className="mt-10 space-y-4">
               {product.isAvailable ? (
                 <>
                   <a
                     href={`https://wa.me/2347025100529?text=Hi,%20I'm%20interested%20in%20this%20product:%0A%0A*${encodeURIComponent(product.name)}*%0APrice: ${encodeURIComponent(formatPrice(product.price))}%0A%0AView on our site:%20https://anatashia-collection.vercel.app/products/${product.slug.current}%0A%0AImage:%20${encodeURIComponent(product.images?.[0] ? urlFor(product.images[0]).url() : '/placeholder.jpg')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full px-6 py-3 rounded-lg bg-[#25D366] hover:bg-[#128C7E] text-white font-medium text-center transition-colors"
+                    className="group flex items-center justify-center gap-2 w-full px-8 py-4 bg-primary hover:bg-gold-soft text-primary-foreground text-xs font-semibold uppercase tracking-[0.2em] transition-all duration-300"
                   >
-                    Order via WhatsApp
+                    Add to Bag — Order via WhatsApp
                   </a>
-                  <p className="text-sm text-muted-foreground text-center">
-                    Click to chat with us on WhatsApp and place your order
+                  <p className="text-xs text-muted-foreground text-center font-light">
+                    Chat with us on WhatsApp to complete your order
                   </p>
                 </>
               ) : (
-                <div className="bg-muted rounded-lg p-4 text-center">
-                  <p className="text-muted-foreground">
-                    This item is currently sold out. Contact us on WhatsApp to be notified when it&apos;s back in stock.
+                <div className="border border-border p-6 text-center">
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                    This piece is currently sold out. Let us know and we&apos;ll
+                    notify you when it returns.
                   </p>
                   <a
                     href={`https://wa.me/2347025100529?text=Hi,%20I'm%20interested%20in%20being%20notified%20when%20this%20item%20is%20back%20in%20stock:%0A%0A*${encodeURIComponent(product.name)}*%0A%0AView on our site:%20https://anatashia-collection.vercel.app/products/${product.slug.current}%0A%0AImage:%20${encodeURIComponent(product.images?.[0] ? urlFor(product.images[0]).url() : '/placeholder.jpg')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-4 px-4 py-2 rounded-lg bg-[#25D366] hover:bg-[#128C7E] text-white font-medium transition-colors"
+                    className="inline-block mt-5 px-8 py-3.5 border border-foreground hover:bg-foreground hover:text-background text-xs font-semibold uppercase tracking-[0.2em] transition-colors"
                   >
                     Notify Me
                   </a>
                 </div>
               )}
             </div>
+
+            {/* Assurance row */}
+            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-border pt-8 text-center">
+              {['Authentic', 'Nationwide Delivery', 'Personal Service'].map((item) => (
+                <p key={item} className="text-[0.65rem] uppercase tracking-[0.15em] text-muted-foreground leading-relaxed">
+                  {item}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Related Products */}
         {filteredRelated.length > 0 && (
-          <div className="border-t border-border pt-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-8">
-              Related Products
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="border-t border-border pt-16">
+            <div className="text-center mb-12">
+              <p className="eyebrow">More to Discover</p>
+              <h2 className="display mt-4 text-3xl md:text-4xl text-foreground">
+                You May Also Like
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-8 md:gap-y-16">
               {filteredRelated.map((relatedProduct) => (
                 <ProductCard key={relatedProduct._id} product={relatedProduct} />
               ))}

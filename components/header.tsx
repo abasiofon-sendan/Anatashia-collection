@@ -1,8 +1,8 @@
 "use client"
 
 import Link from 'next/link'
-import { useState } from 'react'
-import { Menu, X, ShoppingBag } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Menu, X, ShoppingBag, Search } from 'lucide-react'
 import { ThemeToggle } from './theme-toggle'
 
 const navLinks = [
@@ -13,55 +13,81 @@ const navLinks = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <ShoppingBag className="h-6 w-6 text-primary" />
-            <span className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-background/85 backdrop-blur-md border-b border-border'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 items-center h-16 md:h-20">
+          {/* Logo (left) */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="font-serif text-2xl md:text-[1.75rem] font-medium tracking-tight text-foreground">
               Anatashia
             </span>
+            <span className="hidden sm:inline-block h-1 w-1 rounded-full bg-gold transition-transform duration-500 group-hover:scale-150" />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Centered nav (desktop) */}
+          <nav className="hidden md:flex items-center justify-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                className="link-underline text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Right Side - Theme Toggle & Mobile Menu */}
-          <div className="flex items-center gap-4">
+          {/* Right side actions */}
+          <div className="flex items-center justify-end gap-1.5 md:gap-2">
+            <button
+              className="inline-flex items-center justify-center h-10 w-10 rounded-full text-foreground/80 hover:text-foreground hover:bg-accent transition-colors"
+              aria-label="Search"
+            >
+              <Search className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.5} />
+            </button>
             <ThemeToggle />
-            {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+            <Link
+              href="/products"
+              className="relative inline-flex items-center justify-center h-10 w-10 rounded-full text-foreground/80 hover:text-foreground hover:bg-accent transition-colors"
+              aria-label="Cart"
+            >
+              <ShoppingBag className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.5} />
+            </Link>
+            <button
+              className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-full text-foreground hover:bg-accent transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {isMenuOpen ? <X className="h-5 w-5" strokeWidth={1.5} /> : <Menu className="h-5 w-5" strokeWidth={1.5} />}
+            </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-4">
+          <nav className="md:hidden pb-6 pt-2 border-t border-border animate-fade-in">
+            <div className="flex flex-col">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+                  className="font-serif text-2xl text-foreground/90 hover:text-gold transition-colors py-3"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}

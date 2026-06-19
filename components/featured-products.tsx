@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { ProductCard } from '@/components/product-card'
 import { CategoryFilter } from '@/components/category-filter'
 import { Product } from '@/lib/types'
@@ -22,55 +23,52 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
   }, [activeCategory, products])
 
   return (
-    <section id="products" className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
+    <section id="products" className="py-20 md:py-28 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <p className="eyebrow">Curated Selection</p>
+          <h2 className="display mt-4 text-4xl md:text-5xl text-foreground">
             Featured Collection
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Discover our handpicked selection of the finest pieces for your wardrobe
+          <p className="mt-5 text-muted-foreground font-light leading-relaxed">
+            A handpicked edit of the season&apos;s most refined pieces — designed to
+            layer, last, and elevate the everyday.
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex justify-center mb-10">
-          <CategoryFilter 
-            activeCategory={activeCategory} 
-            onCategoryChange={setActiveCategory} 
+        <div className="flex justify-center mb-12">
+          <CategoryFilter
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
           />
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-8 md:gap-y-16">
           {filteredProducts.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
 
         {filteredProducts.length === 0 && (
-          <p className="text-center text-muted-foreground py-12">
+          <p className="text-center text-muted-foreground py-12 font-light">
             No featured products in this category yet.
           </p>
         )}
 
         {/* View All Link */}
-        <div className="text-center mt-12">
-          <a 
-            href="/products" 
-            className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-lg transition-colors"
+        <div className="text-center mt-16">
+          <Link
+            href="/products"
+            className="link-underline inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-foreground"
           >
             View All Products
-            <svg 
-              className="ml-2 w-5 h-5" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
